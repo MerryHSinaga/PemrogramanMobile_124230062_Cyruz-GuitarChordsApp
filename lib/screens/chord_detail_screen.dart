@@ -60,7 +60,7 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
     try {
       setState(() => _isPlaying = true);
       await _audioPlayer.play(AssetSource("audio/$fileName.mp3"));
-      //Efek tampilan souund ketika diplay
+      //Efek tampilan sound
       await Future.delayed(const Duration(seconds: 5));
       setState(() => _isPlaying = false);
     } catch (e) {
