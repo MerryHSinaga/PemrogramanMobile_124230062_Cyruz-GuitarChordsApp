@@ -60,7 +60,6 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
     try {
       setState(() => _isPlaying = true);
       await _audioPlayer.play(AssetSource("audio/$fileName.mp3"));
-      //Efek tampilan sound
       await Future.delayed(const Duration(seconds: 5));
       setState(() => _isPlaying = false);
     } catch (e) {
@@ -79,28 +78,41 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+
       appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           widget.name,
           style: const TextStyle(
-            color: Colors.purpleAccent,
+            color: Colors.white,
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: Colors.black,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.purpleAccent),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF2196F3),
+                Color(0xFF0D47A1),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
+
       body: Stack(
         fit: StackFit.expand,
         children: [
-    
           Container(color: Colors.black),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-            child: Container(color: Colors.black.withOpacity(0.4)),
+            child: Container(color: Colors.black.withOpacity(0.45)),
           ),
+
           SafeArea(
             child: Center(
               child: Padding(
@@ -108,13 +120,14 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    
                     AnimatedContainer(
-                      duration: const Duration(milliseconds: 1200), 
-                      curve: Curves.easeInOutCubic,
+                      duration: const Duration(milliseconds: 900),
+                      curve: Curves.easeInOut,
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: _isPlaying
-                              ? Colors.purpleAccent
+                              ? const Color.fromARGB(255, 46, 143, 247)
                               : Colors.white24,
                           width: 2,
                         ),
@@ -122,7 +135,7 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
                         boxShadow: [
                           if (_isPlaying)
                             BoxShadow(
-                              color: Colors.purpleAccent.withOpacity(0.5),
+                              color: const Color.fromARGB(255, 46, 143, 247).withOpacity(0.55),
                               blurRadius: 40,
                               spreadRadius: 6,
                             ),
@@ -137,7 +150,7 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
                             loading == null
                                 ? child
                                 : const CircularProgressIndicator(
-                                    color: Colors.purpleAccent,
+                                    color: Colors.lightBlueAccent,
                                   ),
                         errorBuilder: (_, __, ___) => const Icon(
                           Icons.broken_image,
@@ -146,7 +159,9 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 30),
+
                     AnimatedOpacity(
                       duration: const Duration(milliseconds: 700),
                       opacity: _isPlaying ? 1 : 0.8,
@@ -157,20 +172,21 @@ class _ChordDetailScreenState extends State<ChordDetailScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: _isPlaying
-                              ? Colors.purpleAccent
+                              ? Colors.lightBlueAccent
                               : Colors.white70,
                           fontSize: 18,
                           fontStyle: FontStyle.italic,
                           shadows: [
                             if (_isPlaying)
                               const Shadow(
-                                color: Colors.purpleAccent,
+                                color: Colors.lightBlueAccent,
                                 blurRadius: 16,
                               ),
                           ],
                         ),
                       ),
                     ),
+
                   ],
                 ),
               ),

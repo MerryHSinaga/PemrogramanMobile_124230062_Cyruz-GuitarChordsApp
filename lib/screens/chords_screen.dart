@@ -99,167 +99,169 @@ class _ChordsScreenState extends State<ChordsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 12.0, top: 4.0),
-                child: Center(
-                  child: Text(
-                    "Let your fingers tell the story through every chord.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w500,
-                      shadows: [
-                        Shadow(
-                          color: Colors.purpleAccent,
-                          blurRadius: 10,
-                          offset: Offset(0, 0),
-                        ),
-                      ],
-                    ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                const Text(
+                  "Let your fingers tell the story through every chord.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-              TextField(
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white10,
-                  hintText: 'Search chord...',
-                  hintStyle: const TextStyle(color: Colors.white54),
-                  prefixIcon: const Icon(Icons.search, color: Colors.purpleAccent),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                onChanged: _filterChords,
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Filter by:",
-                    style: TextStyle(color: Colors.white70, fontSize: 16),
-                  ),
-                  DropdownButton<String>(
-                    dropdownColor: Colors.black87,
-                    value: _selectedFilter,
-                    items: ['All', 'A', 'B', 'C', 'D', 'E', 'F', 'G']
-                        .map((letter) => DropdownMenuItem(
-                              value: letter,
-                              child: Text(
-                                letter,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ))
-                        .toList(),
-                    onChanged: (value) {
-                      if (value != null) _applyLetterFilter(value);
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(color: Colors.purpleAccent),
-                      )
-                    : _filteredChords.isEmpty
-                        ? const Center(
-                            child: Text(
-                              'No chords found',
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          )
-                        : GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 12,
-                              mainAxisSpacing: 12,
-                              childAspectRatio: 1,
-                            ),
-                            itemCount: _filteredChords.length,
-                            itemBuilder: (context, index) {
-                              final chord = _filteredChords[index];
-                              final imageUrl = chord['image_url'] ?? '';
+                const SizedBox(height: 18),
 
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => ChordDetailScreen(
-                                        name: chord['name'],
-                                        imageUrl: imageUrl,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white10,
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.purpleAccent.withOpacity(0.2),
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      imageUrl.isNotEmpty
-                                          ? ClipRRect(
-                                              borderRadius: BorderRadius.circular(8),
-                                              child: Image.network(
-                                                imageUrl,
-                                                height: 100,
-                                                width: 100,
-                                                fit: BoxFit.contain,
-                                                errorBuilder:
-                                                    (context, error, stackTrace) =>
-                                                        const Icon(
-                                                  Icons.broken_image,
-                                                  color: Colors.white38,
-                                                  size: 60,
-                                                ),
-                                              ),
-                                            )
-                                          : const Icon(
-                                              Icons.music_note,
-                                              color: Colors.purpleAccent,
-                                              size: 60,
-                                            ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        chord['name'] ?? 'Unknown',
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16,
+                // Search Box
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1F1F1F),
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: Colors.white12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.45),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: TextField(
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search, color: Colors.lightBlueAccent),
+                      hintText: 'Search chord...',
+                      hintStyle: TextStyle(color: Colors.white38),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+                    ),
+                    onChanged: _filterChords,
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Filter by:", style: TextStyle(color: Colors.white70)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1F1F1F),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.white24),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          dropdownColor: const Color(0xFF2B2B2B),
+                          value: _selectedFilter,
+                          items: ['All', 'A', 'B', 'C', 'D', 'E', 'F', 'G']
+                              .map((letter) => DropdownMenuItem(
+                                    value: letter,
+                                    child:
+                                        Text(letter, style: const TextStyle(color: Colors.white)),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            if (value != null) _applyLetterFilter(value);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                Expanded(
+                  child: _isLoading
+                      ? const Center(child: CircularProgressIndicator(color: Colors.lightBlueAccent))
+                      : _filteredChords.isEmpty
+                          ? const Center(
+                              child: Text('No chords found', style: TextStyle(color: Colors.white70)),
+                            )
+                          : GridView.builder(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 14,
+                                mainAxisSpacing: 14,
+                                childAspectRatio: 0.95,
+                              ),
+                              itemCount: _filteredChords.length,
+                              itemBuilder: (context, index) {
+                                final chord = _filteredChords[index];
+                                final imageUrl = chord['image_url'] ?? '';
+
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => ChordDetailScreen(
+                                          name: chord['name'],
+                                          imageUrl: imageUrl,
                                         ),
                                       ),
-                                    ],
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF1D1D1D),
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: Colors.white10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.35),
+                                          blurRadius: 14,
+                                          offset: const Offset(0, 6),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        imageUrl.isNotEmpty
+                                            ? ClipRRect(
+                                                borderRadius: BorderRadius.circular(8),
+                                                child: Image.network(
+                                                  imageUrl,
+                                                  height: 100,
+                                                  width: 100,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
+                                            : const Icon(Icons.music_note,
+                                                color: Colors.lightBlueAccent, size: 60),
+                                        const SizedBox(height: 14),
+                                        Text(
+                                          chord['name'] ?? 'Unknown',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-              ),
-            ],
+                                );
+                              },
+                            ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

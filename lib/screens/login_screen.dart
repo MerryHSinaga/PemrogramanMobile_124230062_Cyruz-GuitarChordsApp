@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen>
                     
                     ShaderMask(
                       shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Colors.purpleAccent, Colors.pinkAccent],
+                        colors: [Color.fromARGB(255, 245, 247, 249), Color.fromARGB(255, 64, 156, 255)],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ).createShader(bounds),
@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen>
                             'Login',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 26,
+                              fontSize: 25,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen>
                             child: ElevatedButton(
                               onPressed: _loading ? null : _login,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purpleAccent,
+                                backgroundColor: const Color.fromARGB(255, 73, 111, 226),
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen>
                                 ),
                                 elevation: 6,
                                 shadowColor:
-                                    Colors.purpleAccent.withOpacity(0.6),
+                                    const Color.fromARGB(255, 73, 111, 226).withOpacity(0.6),
                               ),
                               child: _loading
                                   ? const SizedBox(
@@ -216,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       'Masuk',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 18,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0.8,
                                         shadows: [

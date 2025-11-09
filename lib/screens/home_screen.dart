@@ -5,7 +5,6 @@ import 'convert_screen.dart';
 import 'schedule_screen.dart';
 import 'profile_screen.dart';
 
-
 class HomeScreen extends StatefulWidget {
   final String username;
   const HomeScreen({super.key, required this.username});
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     NotificationService.init();
     NotificationService.requestPermissionIfNeeded();
 
-    //Notifikasi
+    // Notifikasi aplikasi dibuka
     Future.delayed(const Duration(seconds: 1), () {
       NotificationService.showInstant(
         id: 111,
@@ -45,7 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+
+      // AppBar 
       appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
         title: const Text(
           'Cyruz',
           style: TextStyle(
@@ -54,22 +57,40 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.white,
           ),
         ),
-        centerTitle: true,
-        elevation: 8,
-        shadowColor: Colors.purpleAccent,
-        backgroundColor: Colors.black.withOpacity(0),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF1976D2),
+                Color(0xFF0D47A1), 
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
+
       body: _screens[_currentIndex],
+
+      // Bottom Navigasi
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.8),
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFF1976D2),
+              Color(0xFF0D47A1),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(18),
             topRight: Radius.circular(18),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.purpleAccent.withOpacity(0.4),
+              color: Colors.blueAccent.withOpacity(0.35),
               blurRadius: 10,
               offset: const Offset(0, -2),
             ),
@@ -84,8 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.transparent,
             type: BottomNavigationBarType.fixed,
             currentIndex: _currentIndex,
-            selectedItemColor: Colors.purpleAccent,
-            unselectedItemColor: Colors.white54,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white70,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
             unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
             onTap: (index) => setState(() => _currentIndex = index),

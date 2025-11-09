@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'Cyruz',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.purpleAccent,
+          seedColor: const Color.fromARGB(255, 51, 120, 209),
           brightness: Brightness.dark,
         ),
         scaffoldBackgroundColor: Colors.black,

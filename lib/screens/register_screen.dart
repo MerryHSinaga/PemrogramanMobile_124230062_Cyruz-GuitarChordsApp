@@ -105,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                     const SizedBox(height: 4),
                     ShaderMask(
                       shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Colors.purpleAccent, Colors.pinkAccent],
+                        colors: [Color.fromARGB(255, 255, 255, 255), Color.fromARGB(255, 41, 133, 224)],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ).createShader(bounds),
@@ -135,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                             'Daftar Akun',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 26,
+                              fontSize: 25,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -174,13 +174,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                             child: ElevatedButton(
                               onPressed: _loading ? null : _register,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purpleAccent,
+                                backgroundColor: const Color.fromARGB(255, 56, 130, 234),
                                 padding: const EdgeInsets.symmetric(vertical: 14),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 elevation: 6,
-                                shadowColor: Colors.purpleAccent.withOpacity(0.6),
+                                shadowColor: const Color.fromARGB(255, 60, 148, 235).withOpacity(0.6),
                               ),
                               child: _loading
                                   ? const SizedBox(
@@ -195,7 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                       'Daftar',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 18,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 0.8,
                                         shadows: [

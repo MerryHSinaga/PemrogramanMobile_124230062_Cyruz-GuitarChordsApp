@@ -43,7 +43,7 @@ class _MapMusicScreenState extends State<MapMusicScreen> {
         throw Exception('Izin lokasi ditolak permanen.');
       }
 
-      // Posisi awal
+      // Posisi awal pengguna
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
@@ -51,7 +51,7 @@ class _MapMusicScreenState extends State<MapMusicScreen> {
 
       setState(() => _currentPosition = currentPos);
 
-      //Data toko musik 
+      //Mengambil data toko musik 
       await _fetchMusicStores(currentPos);
 
       //Lokasi
@@ -258,7 +258,7 @@ class _MapMusicScreenState extends State<MapMusicScreen> {
 
     setState(() {
       _route = [
-        Polyline(points: points, strokeWidth: 5, color: Colors.deepPurple)
+        Polyline(points: points, strokeWidth: 5, color: const Color.fromARGB(255, 54, 123, 241))
       ];
     });
 
@@ -318,7 +318,7 @@ class _MapMusicScreenState extends State<MapMusicScreen> {
           const SizedBox(height: 10),
           FloatingActionButton(
             heroTag: 'list_stores',
-            backgroundColor: const Color.fromARGB(255, 166, 45, 193),
+            backgroundColor: const Color.fromARGB(255, 192, 14, 14),
             onPressed: _showStoreList,
             child: const Icon(Icons.list),
           ),
@@ -339,7 +339,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
       flexibleSpace: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 190, 44, 206), Colors.indigo],
+            colors: [Color.fromARGB(255, 53, 157, 241), Colors.indigo],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),

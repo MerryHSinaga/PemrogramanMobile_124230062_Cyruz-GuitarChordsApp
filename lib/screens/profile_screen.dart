@@ -12,11 +12,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String kesanPesan = "Mata kuliah ini membantu saya menambah portofolio saya.";
+  String kesanPesan = "Mata kuliah ini sangat membantu saya untuk menambah portofolio saya, saya belajar banyak hal dalam pengembangan aplikasi Mobile meskipun capek banget tidur cuman 2 jam. Sekian.";
   bool isEditing = false;
   final TextEditingController controller = TextEditingController();
 
-  static const Color primaryColor = Colors.purpleAccent;
+  static const Color primaryColor = Color.fromARGB(255, 64, 148, 251);
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Icon(Icons.check_circle_outline,
-                      color: primaryColor, size: 40),
+                      color: Color.fromARGB(255, 62, 157, 236), size: 40),
                   const SizedBox(height: 15),
                   const Text(
                     "Berhasil Disimpan!",
@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: const Text(
                       "OK",
                       style: TextStyle(
-                        color: primaryColor,
+                        color: Color.fromARGB(255, 60, 122, 235),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -108,35 +108,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, 
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            const Text(
-              "Cyruz is glad to have you here, let’s keep your profile in tune.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w500,
-                shadows: [
-                  Shadow(
-                    color: Colors.purpleAccent,
-                    blurRadius: 10,
-                    offset: Offset(0, 0),
-                  ),
-                ],
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              const SizedBox(height: 10),
+              const Text(
+                "Cyruz is glad to have you here, let’s keep your profile in tune.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w500,
+                  shadows: [
+                    Shadow(
+                      color: Color.fromARGB(255, 64, 94, 204),
+                      blurRadius: 10,
+                      offset: Offset(0, 0),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 25),
-            _buildProfileHeader(),
-            const SizedBox(height: 40),
-            _buildMessageCard(),
-            const SizedBox(height: 40),
-            _buildLogoutButton(),
-          ],
+              const SizedBox(height: 25),
+              _buildProfileHeader(),
+              const SizedBox(height: 40),
+              _buildMessageCard(),
+              const SizedBox(height: 40),
+              _buildLogoutButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -148,10 +156,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: primaryColor.withOpacity(0.6), width: 3),
+            border: Border.all(color: const Color.fromARGB(255, 62, 121, 249).withOpacity(0.6), width: 3),
             boxShadow: [
               BoxShadow(
-                color: primaryColor.withOpacity(0.5),
+                color: const Color.fromARGB(255, 69, 109, 243).withOpacity(0.5),
                 blurRadius: 20,
                 spreadRadius: 3,
               ),
@@ -184,9 +192,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Container(
         padding: const EdgeInsets.all(25),
         decoration: BoxDecoration(
-          color: Colors.grey[900], 
+          color: const Color(0xFF1F1F1F),
           borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: Colors.grey[800]!),
+          border: Border.all(color: Colors.white12),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,32 +251,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        TextField(
-          controller: controller,
-          maxLines: 4,
-          style: const TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.grey[850],
-            hintText: "Tulis kesan dan pesan!",
-            hintStyle: const TextStyle(color: Colors.white54),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide.none,
+        Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF1F1F1F),
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.white12),
+          ),
+          child: TextField(
+            controller: controller,
+            maxLines: 4,
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
+              hintText: "Tulis kesan dan pesan!",
+              hintStyle: TextStyle(color: Colors.white54),
+              contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+              border: InputBorder.none,
             ),
           ),
         ),
         const SizedBox(height: 20),
-        ElevatedButton.icon(
-          onPressed: _saveMessage,
-          icon: const Icon(Icons.send_rounded, color: Colors.white),
-          label: const Text("Simpan"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.purple,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+        Container(
+          height: 52,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF42A5F5), Color(0xFF0D47A1)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(color: Colors.blueAccent.withOpacity(0.5), blurRadius: 12, offset: Offset(0, 4)),
+            ],
+          ),
+          child: ElevatedButton.icon(
+            onPressed: _saveMessage,
+            icon: const Icon(Icons.send_rounded, color: Colors.white),
+            label: const Text(
+              "Simpan",
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            ),
           ),
         ),
       ],
@@ -276,19 +302,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildLogoutButton() {
-    return ElevatedButton.icon(
-      onPressed: _logout,
-      icon: const Icon(Icons.logout, color: Colors.white),
-      label: const Text(
-        "Log Out",
-        style: TextStyle(color: Colors.white),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.purple,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+    return Container(
+      height: 52,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF42A5F5), Color(0xFF0D47A1)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(color: Colors.blueAccent.withOpacity(0.5), blurRadius: 12, offset: Offset(0, 4)),
+        ],
+      ),
+      child: ElevatedButton.icon(
+        onPressed: _logout,
+        icon: const Icon(Icons.logout, color: Colors.white),
+        label: const Text(
+          "Log Out",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
       ),
     );
   }

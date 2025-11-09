@@ -73,7 +73,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       lastDate: DateTime.now().add(const Duration(days: 365 * 5)),
       builder: (context, child) => Theme(
         data: ThemeData.dark().copyWith(
-          colorScheme: const ColorScheme.dark(primary: Colors.purple),
+          colorScheme: const ColorScheme.dark(primary: Colors.lightBlueAccent),
         ),
         child: child!,
       ),
@@ -215,7 +215,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       decoration: BoxDecoration(
         color: Colors.white10,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.purple),
+        border: Border.all(color: Colors.lightBlueAccent),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +223,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           Text(
             '${r['name']}${isDone ? " (Done)" : ""}',
             style: const TextStyle(
-              color: Color.fromARGB(255, 164, 55, 189),
+              color: Colors.lightBlueAccent,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -235,7 +235,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           ...sortedConverted.entries.map((e) => Text(
                 'Time in ${e.key}: ${e.value}',
                 style: TextStyle(
-                  color: e.key == zone ? Colors.purpleAccent : Colors.white54,
+                  color:
+                      e.key == zone ? Colors.lightBlueAccent : Colors.white54,
                   fontSize: 16,
                   fontWeight:
                       e.key == zone ? FontWeight.bold : FontWeight.normal,
@@ -244,7 +245,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           Align(
             alignment: Alignment.topRight,
             child: IconButton(
-              icon: const Icon(Icons.delete, color: Colors.purpleAccent),
+              icon: const Icon(Icons.delete, color: Colors.lightBlueAccent),
               onPressed: () => _deleteSchedule(_reminders.indexOf(r)),
             ),
           ),
@@ -287,9 +288,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 fontWeight: FontWeight.w500,
                 shadows: [
                   Shadow(
-                    color: Colors.purpleAccent,
+                    color: Colors.lightBlueAccent,
                     blurRadius: 10,
-                    offset: Offset(0, 0),
                   ),
                 ],
               ),
@@ -319,7 +319,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 child: Row(
                   children: [
                     const Icon(Icons.calendar_today,
-                        color: Colors.purpleAccent),
+                        color: Colors.lightBlueAccent),
                     const SizedBox(width: 12),
                     Text(
                       'Date: ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
@@ -339,7 +339,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     borderRadius: BorderRadius.circular(12)),
                 child: Row(
                   children: [
-                    const Icon(Icons.access_time, color: Colors.purpleAccent),
+                    const Icon(Icons.access_time,
+                        color: Colors.lightBlueAccent),
                     const SizedBox(width: 12),
                     Text(
                       _selectedTime == null
@@ -354,25 +355,37 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             const SizedBox(height: 16),
             _buildZoneDropdown(),
             const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: _isAdding ? null : _addSchedule,
-              icon: _isAdding
-                  ? const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(
-                          strokeWidth: 2, color: Colors.white))
-                  : const Icon(Icons.add_alert, color: Colors.white),
-              label: Text(
-                _isAdding ? 'Adding...' : 'Add',
-                style: const TextStyle(color: Colors.white),
+
+            //Add button
+            Container(
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF4DA3FF), Color(0xFF005FFF)],
+                ),
+                borderRadius: BorderRadius.circular(12),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
+              child: ElevatedButton.icon(
+                onPressed: _isAdding ? null : _addSchedule,
+                icon: _isAdding
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white))
+                    : const Icon(Icons.add_alert, color: Colors.white),
+                label: Text(
+                  _isAdding ? 'Adding...' : 'Add',
+                  style: const TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
               ),
             ),
+
             const SizedBox(height: 24),
             if (sortedReminders.isNotEmpty)
               for (final r in sortedReminders) _buildScheduleCard(r)
